@@ -59,5 +59,6 @@ def setup_callbacks():
 if __name__ == '__main__':
     # run() method of Flask class runs the application
     # on the local development server.
+    init_printer()
     setup_callbacks()
     app.run(port=config['port'])
