@@ -4,6 +4,7 @@ from telethon.sync import TelegramClient
 
 
 def get_telegram_messages():
+    # modification
     api_id = config['api_id']
     api_hash = config['api_hash']
     main_chat_id = config['grocery_chat_id']
