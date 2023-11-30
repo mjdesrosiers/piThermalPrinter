@@ -1,10 +1,11 @@
+import requests
 from flask import Flask, request
-import yaml
 from config_loader import config
 
 app = Flask(__name__)
 
 p = None
+
 
 def init_printer():
     try:
@@ -13,9 +14,11 @@ def init_printer():
     except:
         pass
 
+
 def print_text(text):
     p.text(text)
     p.text('\n')
+
 
 @app.route("/")
 def hello_world():
@@ -29,6 +32,12 @@ def receive_new_request():
     if request.method == "POST":
         text = request.form.get('text')
         print_text(text)
+
+
+def send_message_to_server(message_text):
+    obj = {'text': message_text}
+    url = f"http://localhost:{config['port']}"
+    result = requests.post(url, obj)
 
 
 def do_grocery_callback():
