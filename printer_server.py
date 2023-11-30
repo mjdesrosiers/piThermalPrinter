@@ -36,7 +36,7 @@ def receive_new_request():
 
 def send_message_to_server(message_text):
     obj = {'text': message_text}
-    url = f"http://localhost:{config['port']}"
+    url = f"http://127.0.0.1:{config['port']}"
     result = requests.post(url, obj)
 
 
