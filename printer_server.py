@@ -12,7 +12,8 @@ printer = None
 
 def init_printer():
     global printer
-    printer = Usb(config['printer_vid'], config['printer_pid'], 0, profile="TM-T88III")
+    printer = Usb(config['printer_vid'], config['printer_pid'],
+                  in_ep=0x81, out_ep=0x03)
 
 def print_text(text):
     printer.text(text)
