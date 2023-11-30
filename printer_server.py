@@ -15,8 +15,8 @@ def init_printer():
     printer = Usb(config['printer_vid'], config['printer_pid'], 0, profile="TM-T88III")
 
 def print_text(text):
-    p.text(text)
-    p.text('\n')
+    printer.text(text)
+    printer.text('\n')
 
 
 @app.route("/")
