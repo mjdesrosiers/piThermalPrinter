@@ -1,3 +1,5 @@
+import traceback
+
 import requests
 from flask import Flask, request
 from config_loader import config
@@ -11,8 +13,9 @@ def init_printer():
     try:
         from escpos.printer import Usb
         p = Usb(config['printer_vid'], config['printer_pid'], 0, profile="TM-T88III")
-    except:
-        pass
+    except Exception as e:
+        print(e)
+        traceback.print_exc()
 
 
 def print_text(text):
