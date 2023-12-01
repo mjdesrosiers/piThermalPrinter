@@ -3,7 +3,10 @@ import traceback
 import requests
 from flask import Flask, request
 from config_loader import config
-from escpos.printer import Usb
+try:
+    from escpos.printer import Usb
+except:
+    pass
 
 
 app = Flask(__name__)
