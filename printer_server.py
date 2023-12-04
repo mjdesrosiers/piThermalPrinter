@@ -14,6 +14,10 @@ printer = None
 client = None
 loop = None
 
+def start_background_loop(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
+
 def init_printer():
     global printer
     global client
