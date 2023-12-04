@@ -35,16 +35,16 @@ def get_telegram_messages():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     client = TelegramClient('session_name', api_id, api_hash, loop=loop)
-    client.start()
-    item_set = set()
-    chat_id = config['grocery_chat_id']
-    for message in client.iter_messages(chat_id):
-        if message.text:
-            items = message.text.split('\n')
-            items = [item.strip() for item in items]
-            item_set.update(items)
-    items_set = list(item_set)
 
+    with client:
+        item_set = set()
+        chat_id = config['grocery_chat_id']
+        for message in client.iter_messages(chat_id):
+            if message.text:
+                items = message.text.split('\n')
+                items = [item.strip() for item in items]
+                item_set.update(items)
+    items_set = list(item_set)
     return items_set
 
 
