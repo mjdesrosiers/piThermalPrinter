@@ -20,20 +20,19 @@ def start_background_loop(loop):
 
 def init_printer():
     global printer
-    global client
     global loop
 
     printer = Usb(config['printer_vid'], config['printer_pid'],
                   in_ep=0x81, out_ep=0x03)
+
+
+
+
+
+def get_telegram_messages():
     api_id = config['api_id']
     api_hash = config['api_hash']
-
     client = TelegramClient('session_name', api_id, api_hash)
-    client.start()
-
-
-last_messages = None
-async def do_message_get():
     item_set = {}
     chat_id = config['grocery_chat_id']
     for message in client.iter_messages(chat_id):
@@ -41,16 +40,8 @@ async def do_message_get():
         items = [item.strip() for item in items]
         item_set.update(items)
     items_set = list(item_set)
-    global last_messages
-    last_messages = item_set
 
-def get_telegram_messages():
-    global client
-
-    client.loop.run_until_complete(do_message_get())
-
-    global last_messages
-    return last_messages
+    return items_set
 
 
 def print_text(text):
