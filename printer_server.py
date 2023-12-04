@@ -1,3 +1,4 @@
+import asyncio
 import traceback
 
 import requests
@@ -11,17 +12,22 @@ app = Flask(__name__)
 
 printer = None
 client = None
-
+loop = None
 
 def init_printer():
     global printer
     global client
+    global loop
+
     printer = Usb(config['printer_vid'], config['printer_pid'],
                   in_ep=0x81, out_ep=0x03)
     api_id = config['api_id']
     api_hash = config['api_hash']
 
-    client = TelegramClient('session_name', api_id, api_hash)
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    client = TelegramClient('session_name', api_id, api_hash, loop=loop)
     client.start()
 
 
