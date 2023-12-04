@@ -39,7 +39,7 @@ def get_telegram_messages():
     item_set = {}
     chat_id = config['grocery_chat_id']
     for message in client.iter_messages(chat_id):
-        items = message.text().split('\n')
+        items = message.text.split('\n')
         items = [item.strip() for item in items]
         item_set.update(items)
     items_set = list(item_set)
