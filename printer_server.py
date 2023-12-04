@@ -36,7 +36,7 @@ def get_telegram_messages():
     asyncio.set_event_loop(loop)
     client = TelegramClient('session_name', api_id, api_hash, loop=loop)
     client.start()
-    item_set = {}
+    item_set = set()
     chat_id = config['grocery_chat_id']
     for message in client.iter_messages(chat_id):
         items = message.text.split('\n')
