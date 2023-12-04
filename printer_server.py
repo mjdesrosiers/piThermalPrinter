@@ -15,6 +15,7 @@ client = None
 
 def init_printer():
     global printer
+    global client
     printer = Usb(config['printer_vid'], config['printer_pid'],
                   in_ep=0x81, out_ep=0x03)
     api_id = config['api_id']
