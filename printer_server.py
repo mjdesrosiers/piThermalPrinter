@@ -32,7 +32,9 @@ def init_printer():
 def get_telegram_messages():
     api_id = config['api_id']
     api_hash = config['api_hash']
-    client = TelegramClient('session_name', api_id, api_hash)
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    client = TelegramClient('session_name', api_id, api_hash, loop=loop)
     item_set = {}
     chat_id = config['grocery_chat_id']
     for message in client.iter_messages(chat_id):
