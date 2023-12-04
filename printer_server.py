@@ -24,25 +24,29 @@ def init_printer():
     api_id = config['api_id']
     api_hash = config['api_hash']
 
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
-    client = TelegramClient('session_name', api_id, api_hash, loop=loop)
+    client = TelegramClient('session_name', api_id, api_hash)
     client.start()
 
 
-def get_telegram_messages():
-    global client
-    chat_id = config['grocery_chat_id']
-
+last_messages = None
+async def do_message_get():
     item_set = {}
+    chat_id = config['grocery_chat_id']
     for message in client.iter_messages(chat_id):
         items = message.text().split('\n')
         items = [item.strip() for item in items]
         item_set.update(items)
     items_set = list(item_set)
+    global last_messages
+    last_messages = item_set
 
-    return item_set
+def get_telegram_messages():
+    global client
+
+    client.loop.run_until_complete(do_message_get())
+
+    global last_messages
+    return last_messages
 
 
 def print_text(text):
