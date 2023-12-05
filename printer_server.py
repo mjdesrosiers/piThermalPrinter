@@ -4,7 +4,6 @@ import traceback
 import requests
 from flask import Flask, request
 from config_loader import config
-from escpos.printer import Usb
 from telethon.sync import TelegramClient
 
 
@@ -21,6 +20,7 @@ def start_background_loop(loop):
 def init_printer():
     global printer
     global loop
+    from escpos.printer import Usb
 
     printer = Usb(config['printer_vid'], config['printer_pid'],
                   in_ep=0x81, out_ep=0x03)
