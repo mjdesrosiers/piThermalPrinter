@@ -69,7 +69,7 @@ def receive_new_request():
 
 
 @app.route(config["groceries"])
-def do_groceries():
+def do_groceries(*args):
     items = get_telegram_messages()
     messages = ["* " + item for item in items]
     message = "\n".join(messages)
