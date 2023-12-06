@@ -6,6 +6,7 @@ from flask import Flask, request
 from config_loader import config
 from telethon.sync import TelegramClient
 
+from get_calendar_data import get_upcoming_info, format_upcoming_info
 
 app = Flask(__name__)
 
@@ -75,6 +76,12 @@ def do_groceries():
     print_text(message)
     return "Success!"
 
+@app.route(config["calendar"])
+def do_calendar():
+    message = format_upcoming_info(get_upcoming_info())
+    print_text(message)
+    return "Success!"
+
 
 def send_message_to_server(message_text):
     obj = {'text': message_text}
@@ -89,7 +96,11 @@ def setup_callbacks():
         GPIO.setup(config["button_grocery"], GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(config["button_grocery"], GPIO.FALLING,
                               callback=do_groceries, bouncetime=250)
-    except:
+
+        GPIO.setup(config["button_calendar"], GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.add_event_detect(config["button_calendar"], GPIO.FALLING,
+                              callback=do_calendar, bouncetime=250)
+    except ImportError:
         print("Platform does not support RPi GPIO")
 
 
