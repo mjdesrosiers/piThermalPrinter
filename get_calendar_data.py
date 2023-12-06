@@ -7,7 +7,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from printer_server import send_message_to_server
+# from printer_server import send_message_to_server
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"]
@@ -104,4 +104,4 @@ def format_upcoming_info(info):
 if __name__ == "__main__":
     info = get_upcoming_info()
     message = format_upcoming_info(info)
-    send_message_to_server(message)
+    # send_message_to_server(message)
