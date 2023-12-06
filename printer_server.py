@@ -77,7 +77,7 @@ def do_groceries():
     return "Success!"
 
 @app.route(config["calendar"])
-def do_calendar():
+def do_calendar(*args):
     message = format_upcoming_info(get_upcoming_info())
     print_text(message)
     return "Success!"
