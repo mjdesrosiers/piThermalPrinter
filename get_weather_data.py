@@ -9,7 +9,7 @@ import urllib.request
 
 from config_loader import config
 
-def do_image_capture():
+def make_weather_image():
 
     owm = OWM(config["OWM_key"])
     mgr = owm.weather_manager()

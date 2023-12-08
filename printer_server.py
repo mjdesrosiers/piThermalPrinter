@@ -3,6 +3,8 @@ import traceback
 
 import requests
 from flask import Flask, request
+
+import get_weather_data
 from config_loader import config
 from telethon.sync import TelegramClient
 
@@ -53,6 +55,8 @@ def print_text(text):
     printer.text(text)
     printer.text('\n')
 
+def print_image(filename):
+    printer.image(filename)
 
 @app.route("/")
 def hello_world():
@@ -78,6 +82,8 @@ def do_groceries(*args):
 
 @app.route(config["calendar"])
 def do_calendar(*args):
+    get_weather_data.make_weather_image()
+    print_image('temp.png')
     message = format_upcoming_info(get_upcoming_info())
     print_text(message)
     return "Success!"
