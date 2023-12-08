@@ -45,7 +45,7 @@ def make_weather_image():
     draw.rectangle([0, 0, 400, 100], fill="#ffffff")
     draw.rectangle([1, 1, 399, 99], fill="#000000")
 
-    draw.text((100, 10), f"{now}\n{temp_message}\n{weather_status}", (255, 255, 255), font=font)
+    draw.text((105, 10), f"{now}\n{temp_message}\n{weather_status}", (255, 255, 255), font=font)
     image = ImageOps.invert(image)
     #image = ImageOps.posterize(image, 1)
     image.paste(icon)

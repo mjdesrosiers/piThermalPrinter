@@ -57,6 +57,7 @@ def print_text(text):
 
 def print_image(filename):
     printer.image(filename)
+    printer.text('\n')
 
 @app.route("/")
 def hello_world():
