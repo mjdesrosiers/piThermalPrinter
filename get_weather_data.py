@@ -40,7 +40,7 @@ def make_weather_image():
     image = Image.new('RGB', (400, 100))
 
 
-    font = ImageFont.truetype("arial.ttf", 20)
+    font = ImageFont.load_default()
     draw = ImageDraw.Draw(image)
     draw.rectangle([0, 0, 400, 100], fill="#ffffff")
     draw.rectangle([1, 1, 399, 99], fill="#000000")
