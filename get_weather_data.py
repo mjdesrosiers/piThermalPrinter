@@ -31,7 +31,7 @@ def make_weather_image():
     t_max = round(w.temperature('fahrenheit')['temp_max'])
     t_min = round(w.temperature('fahrenheit')['temp_min'])
     t_cur = round(w.temperature('fahrenheit')['temp'])
-    temp_message = f"Temp: {t_cur} : High: {t_max} / Low: {t_min}"
+    temp_message = f"Now: {t_cur} H:{t_max} L:{t_min}"
     icon = Image.open(temp)
 
     now = datetime.now()
