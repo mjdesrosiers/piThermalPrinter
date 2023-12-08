@@ -52,6 +52,7 @@ def get_telegram_messages():
 
 
 def print_text(text):
+    printer.set(font='B')
     printer.text(text)
     printer.text('\n')
 
