@@ -2,6 +2,7 @@ import asyncio
 import traceback
 
 import requests
+from PIL import Image
 from flask import Flask, request
 
 import get_weather_data
@@ -9,6 +10,7 @@ from config_loader import config
 from telethon.sync import TelegramClient
 
 from get_calendar_data import get_upcoming_info, format_upcoming_info
+from image_utils import ImageText
 
 app = Flask(__name__)
 
@@ -78,8 +80,20 @@ def receive_new_request():
 def do_groceries(*args):
     items = get_telegram_messages()
     messages = ["* " + item for item in items]
-    message = "\n".join(messages)
-    print_text(message)
+    text = "\n".join(messages)
+    img = ImageText((400, 10000), background=(255, 255, 255, 255)) # 200 = alpha
+    font = 'arial.ttf'
+    color = (0, 0, 0)
+    dimensions = img.write_text_box(5, 5, text, box_width=390, font_filename=config['font_name'],
+                       font_size=22, color=color)
+    img.save('imagetext.png')
+    im = Image.open(r"imagetext.png")
+    width = im.size[0]
+    height = dimensions[1]
+    cropped = im.crop((0, 0, width, height))
+    cropped.save("imagetext.png")
+    print_image("imagetext.png")
+    # print_text(text)
     return "Success!"
 
 @app.route(config["calendar"])
