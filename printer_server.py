@@ -45,9 +45,10 @@ def get_telegram_messages():
         for message in client.iter_messages(chat_id):
             if message.text:
                 items = message.text.split('\n')
-                items = [item.strip() for item in items]
+                items = [item.strip() for item in items if len(item.strip())]
                 item_set.update(items)
     items_set = list(item_set)
+    items_set = sorted(items_set)
     return items_set
 
 
@@ -102,11 +103,11 @@ def setup_callbacks():
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(config["button_grocery"], GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(config["button_grocery"], GPIO.FALLING,
-                              callback=do_groceries, bouncetime=250)
+                              callback=do_groceries, bouncetime=5000)
 
         GPIO.setup(config["button_calendar"], GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(config["button_calendar"], GPIO.FALLING,
-                              callback=do_calendar, bouncetime=250)
+                              callback=do_calendar, bouncetime=5000)
     except ImportError:
         print("Platform does not support RPi GPIO")
 
