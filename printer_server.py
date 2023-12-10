@@ -6,6 +6,7 @@ import requests
 from PIL import Image
 from flask import Flask, request
 
+import GPTSorter
 import get_weather_data
 from config_loader import config
 from telethon.sync import TelegramClient
@@ -88,8 +89,9 @@ def do_groceries(*args):
         return
     last_grocery_time = now
     items = get_telegram_messages()
-    messages = ["* " + item for item in items]
-    text = "\n".join(messages)
+    #messages = ["* " + item for item in items]
+    text = "\n".join(items)
+    text = GPTSorter.do_grocery_sort(text)
     img = ImageText((400, 10000), background=(255, 255, 255, 255)) # 200 = alpha
     font = 'arial.ttf'
     color = (0, 0, 0)
