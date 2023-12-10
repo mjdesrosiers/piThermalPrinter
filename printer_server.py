@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import traceback
 
 import requests
@@ -76,8 +77,16 @@ def receive_new_request():
         print_text(text)
 
 
+
+last_grocery_time = None
 @app.route(config["groceries"])
 def do_groceries(*args):
+    global last_grocery_time
+    now = datetime.datetime.now()
+    delta = datetime.time(second=30)
+    if last_grocery_time and (now < (last_grocery_time + delta)):
+        return
+    last_grocery_time = now
     items = get_telegram_messages()
     messages = ["* " + item for item in items]
     text = "\n".join(messages)
@@ -96,8 +105,16 @@ def do_groceries(*args):
     # print_text(text)
     return "Success!"
 
+
+last_calendar_time = None
 @app.route(config["calendar"])
 def do_calendar(*args):
+    global last_calendar_time
+    now = datetime.datetime.now()
+    delta = datetime.time(second=30)
+    if last_calendar_time and (now < (last_calendar_time + delta)):
+        return
+    last_calendar_time = now
     get_weather_data.make_weather_image()
     print_image('temp.png')
     message = format_upcoming_info(get_upcoming_info())
