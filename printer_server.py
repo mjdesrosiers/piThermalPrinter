@@ -96,7 +96,7 @@ def do_groceries(*args):
     font = 'arial.ttf'
     color = (0, 0, 0)
     dimensions = img.write_text_box(5, 5, text, box_width=390, font_filename=config['font_name'],
-                       font_size=22, color=color)
+                       font_size=26, color=color)
     img.save('imagetext.png')
     im = Image.open(r"imagetext.png")
     width = im.size[0]
