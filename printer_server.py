@@ -84,7 +84,7 @@ last_grocery_time = None
 def do_groceries(*args):
     global last_grocery_time
     now = datetime.datetime.now()
-    delta = datetime.time(second=30)
+    delta = datetime.timedelta(second=30)
     if last_grocery_time and (now < (last_grocery_time + delta)):
         return
     last_grocery_time = now
@@ -113,7 +113,7 @@ last_calendar_time = None
 def do_calendar(*args):
     global last_calendar_time
     now = datetime.datetime.now()
-    delta = datetime.time(second=30)
+    delta = datetime.timedelta(second=30)
     if last_calendar_time and (now < (last_calendar_time + delta)):
         return
     last_calendar_time = now
